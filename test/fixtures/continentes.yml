@@ -1,0 +1,15 @@
+# == Schema Information
+#
+# Table name: continentes
+#
+#  id           :bigint           not null, primary key
+#  denominacion :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
+one:
+  denominacion: MyString
+
+two:
+  denominacion: MyString
