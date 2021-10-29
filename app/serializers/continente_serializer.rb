@@ -7,8 +7,8 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-class Continente < ApplicationRecord
-    has_many :ciudades
-    has_many :iconos, through: :ciudades
-    has_one_attached :image
+class ContinenteSerializer < ActiveModel::Serializer
+  attributes :id, :denominacion
+  has_many :ciudades
+  has_many :iconos, through: :ciudades
 end
