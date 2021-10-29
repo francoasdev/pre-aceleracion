@@ -1,26 +1,30 @@
 class IconosController < ApplicationController
     #before_action :authenticate_user!
+    skip_before_action :verify_authenticity_token
 
     def index
         @Iconos = Icono.all
         render json: @Iconos
     end
 
+
     def create
-        @set_iconos = Icono.new(iconos_params)
-        if @set_iconos.save 
+        @iconos = Icono.new(iconos_params)
+        if @iconos.save 
             render json: { success: true, iconos_id: @Iconos.id } 
         else 
             render json: { success: false } 
         end
     end
 
-    def show
-        render json: @set_iconos
+    def show    
+        @iconos = set_iconos
+        render json: @iconos
     end
 
-    def edit
-        if @set_iconos.edit(iconos_params)
+    def update
+        @iconos = @set_iconos
+        if @iconos.update_attributes(iconos_params)
             render json: { sucess: true }
         else
             render json: { sucess: false}    
@@ -28,8 +32,8 @@ class IconosController < ApplicationController
     end
 
     def destroy
-
-        if @set_iconos.destroy
+        @iconos = @set_iconos
+        if @iconos.destroy
             render json: { sucess: true }
         else
             render json: { sucess: false}    
@@ -43,7 +47,7 @@ class IconosController < ApplicationController
     end
 
     def iconos_params
-        params.require(:iconos).permit(:denominacion, :altura, :historia)
+        params.permit(:denominacion, :altura, :historia)
     end
 
 end

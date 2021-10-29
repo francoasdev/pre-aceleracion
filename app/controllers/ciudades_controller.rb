@@ -1,12 +1,14 @@
 class CiudadesController < ApplicationController
+    skip_before_action :verify_authenticity_token
+
     def index
         @ciudades = Ciudad.all
         render json: @ciudades
     end
 
     def create
-        @set_ciudades = Ciudad.new(ciud_params)
-        if @set_ciudades.save 
+        @ciudades = Ciudad.new(ciud_params)
+        if @ciudades.save 
             render json: { success: true, iconos_id: @ciudades.id } 
         else 
             render json: { success: false } 
@@ -14,11 +16,13 @@ class CiudadesController < ApplicationController
     end
 
     def show
-        render json: @set_ciudades
+        @ciudades = @set_ciudades
+        render json: @ciudades
     end
 
-    def edit
-        if @set_ciudades.edit(ciud_params)
+    def update
+        @ciudades = @set_ciudades
+        if @ciudades.update_attributes(ciud_params)
             render json: { sucess: true }
         else
             render json: { sucess: false}    
@@ -26,8 +30,8 @@ class CiudadesController < ApplicationController
     end
 
     def destroy
-
-        if @set_ciudades.destroy
+        @ciudades = @set_ciudades
+        if ciudades.destroy
             render json: { sucess: true }
         else
             render json: { sucess: false}    
@@ -41,6 +45,6 @@ class CiudadesController < ApplicationController
     end
 
     def ciud_params
-        params.require(:ciudades).permit(:denominacion, :habitantes, :superficie)
+        params.permit(:denominacion, :habitantes, :superficie)
     end
 end

@@ -6,9 +6,6 @@ class ContinentesController < ApplicationController
         render json: @continentes
     end
     
-    def new
-        @continentes = Continente.new
-    end
 
     def create
         @continentes = Continente.new(cont_params)
